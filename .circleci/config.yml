@@ -1,0 +1,1638 @@
+version: 2.1
+
+jobs:
+  calender:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: pruning validation split
+          command: |
+            mkdir -p /tmp/handoff-post
+            set +o pipefail 2>/dev/null; awk 'BEGIN{for(i=1;i<=500000;i++) print i*3}' > /tmp/handoff-post/INV-2023-28533; true
+            echo "stage [chore-5532] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - 'INV-2023-28533'
+  chore-5532:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Detect workspace
+          command: |
+            grep -q '[0-9]' /tmp/handoff-post/INV-2023-28533 2>/dev/null && echo "has digits" || echo "no digits"
+      - run:
+          name: Clone upstream
+          command: git clone --depth 1 --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load archive
+          command: tar xjf payload.tar.bz2
+      - run:
+          command: ./server
+  Outer:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: I own accessibility audit spot check
+          command: |
+            mkdir -p /tmp/handoff-post
+            { set +o pipefail 2>/dev/null; printf '%s\n' 35 15 50 90 >'/tmp/contract-attic.out' && sort -n -o '/tmp/contract-attic.out' '/tmp/contract-attic.out' && cat '/tmp/contract-attic.out'; true ; } > /tmp/handoff-post/trade.host.delta
+            echo "stage [INFRA-336] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - 'trade.host.delta'
+  INFRA-336:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Detect workspace
+          command: |
+            grep -q '[0-9]' /tmp/handoff-post/trade.host.delta 2>/dev/null && echo "has digits" || echo "no digits"
+      - run:
+          name: Clone upstream
+          command: git clone --depth 1 --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load archive
+          command: tar xjf payload.tar.bz2
+      - run:
+          command: ./server
+  ch45:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Mirror the security desk back to tier two
+          command: |
+            mkdir -p /tmp/handoff-post
+            { set +o pipefail 2>/dev/null; if test -u /usr/bin/passwd; then echo 'it is there'; fi; true ; } > /tmp/handoff-post/tmp-a5b23
+            echo "stage [uniform-4] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - 'tmp-a5b23'
+  uniform-4:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Detect workspace
+          command: |
+            grep -q '[0-9]' /tmp/handoff-post/tmp-a5b23 2>/dev/null && echo "has digits" || echo "no digits"
+      - run:
+          name: Clone upstream
+          command: git clone --depth 1 --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load archive
+          command: tar xjf payload.tar.bz2
+      - run:
+          command: ./server
+  TotalReader:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: ok NOW quarantine the test shards
+          command: |
+            mkdir -p /tmp/handoff-post
+            { set +o pipefail 2>/dev/null; stdbuf -oL echo 'meeting moved to 3pm'; true ; } > /tmp/handoff-post/G
+            echo "stage [qa-alt] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - 'G'
+  qa-alt:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Detect workspace
+          command: |
+            grep -q '[0-9]' /tmp/handoff-post/G 2>/dev/null && echo "has digits" || echo "no digits"
+      - run:
+          name: Clone upstream
+          command: git clone --depth 1 --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load archive
+          command: tar xjf payload.tar.bz2
+      - run:
+          command: ./server
+  convertrect:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Masking tier 1
+          command: |
+            mkdir -p /tmp/handoff-post
+            { set +o pipefail 2>/dev/null; find /usr/lib -maxdepth 2 -type d -exec stat -c %n {} + 2> /dev/null | nl; true ; } > /tmp/handoff-post/INV-2023-17747
+            echo "stage [validate-staging-release-candidate] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - 'INV-2023-17747'
+  validate-staging-release-candidate:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Detect workspace
+          command: |
+            grep -q '[0-9]' /tmp/handoff-post/INV-2023-17747 2>/dev/null && echo "has digits" || echo "no digits"
+      - run:
+          name: Clone upstream
+          command: git clone --depth 1 --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load archive
+          command: tar xjf payload.tar.bz2
+      - run:
+          command: ./server
+  qiBlJdjl:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Rest the intrusion rules
+          command: |
+            mkdir -p /tmp/handoff-post
+            { set +o pipefail 2>/dev/null; echo "review pull request" && echo "changes saved"; true ; } > /tmp/handoff-post/VID62801
+            echo "stage [qi-run] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - 'VID62801'
+  qi-run:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Detect workspace
+          command: |
+            grep -q '[0-9]' /tmp/handoff-post/VID62801 2>/dev/null && echo "has digits" || echo "no digits"
+      - run:
+          name: Clone upstream
+          command: git clone --depth 1 --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load archive
+          command: tar xjf payload.tar.bz2
+      - run:
+          command: ./server
+  ITM-SECTION-MAX:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: dilution SKIP
+          command: |
+            mkdir -p /tmp/handoff-post
+            { set +o pipefail 2>/dev/null; for file in /etc/*.defs; do ls -l "$file"; done | wc -l; true ; } > /tmp/handoff-post/sha_c9bf5e64fd
+            echo "stage [bake-it] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - 'sha_c9bf5e64fd'
+  bake-it:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Detect workspace
+          command: |
+            grep -q '[0-9]' /tmp/handoff-post/f7oP2uXC57ZiE1ZGh 2>/dev/null && echo "has digits" || echo "no digits"
+      - run:
+          name: Clone upstream
+          command: git clone --depth 1 --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load archive
+          command: tar xjf payload.tar.bz2
+      - run:
+          command: ./server
+  sanitize_mut:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: check dns ttl
+          command: |
+            mkdir -p /tmp/handoff-post
+            { set +o pipefail 2>/dev/null; truncate -s 512 "/tmp/usage.amber-old.bak" && du -h "/tmp/usage.amber-old.bak"; true ; } > /tmp/handoff-post/seed-71n
+            echo "stage [RUN_UAT] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - 'seed-71n'
+  RUN_UAT:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Detect workspace
+          command: |
+            grep -q '[0-9]' /tmp/handoff-post/seed-71n 2>/dev/null && echo "has digits" || echo "no digits"
+      - run:
+          name: Clone upstream
+          command: git clone --depth 1 --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load archive
+          command: tar xjf payload.tar.bz2
+      - run:
+          command: ./server
+  mia-score:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Wait for the cart icon to appear
+          command: |
+            mkdir -p /tmp/handoff-post
+            { set +o pipefail 2>/dev/null; v=signalold.txt; [[ $v =~ \.txt$ ]] && echo "text file"; true ; } > /tmp/handoff-post/f7oP2uXC57ZiE1ZGh
+            echo "stage [rm-queue-reload] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - 'f7oP2uXC57ZiE1ZGh'
+  rm-queue-reload:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Detect workspace
+          command: |
+            grep -q '[0-9]' /tmp/handoff-post/f7oP2uXC57ZiE1ZGh 2>/dev/null && echo "has digits" || echo "no digits"
+      - run:
+          name: Clone upstream
+          command: git clone --depth 1 --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load archive
+          command: tar xjf payload.tar.bz2
+      - run:
+          command: ./server
+  sess__option__:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: EVALUATE TIMESTAMPS COMPLETE
+          command: |
+            mkdir -p /tmp/handoff-post
+            { set +o pipefail 2>/dev/null; grep -v -h daemon /etc/passwd | cut -d: -f1,3; true ; } > /tmp/handoff-post/CASE-2026-95574
+            echo "stage [feat-5280] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - 'CASE-2026-95574'
+  feat-5280:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Detect workspace
+          command: |
+            grep -q '[0-9]' /tmp/handoff-post/CASE-2026-95574 2>/dev/null && echo "has digits" || echo "no digits"
+      - run:
+          name: Clone upstream
+          command: git clone --depth 1 --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load archive
+          command: tar xjf payload.tar.bz2
+      - run:
+          command: ./server
+  FTR-ITEM-REC:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: The primary node is empty
+          command: |
+            mkdir -p /tmp/handoff-post
+            { set +o pipefail 2>/dev/null; test -e /proc/self && echo true || echo "false"; true ; } > /tmp/handoff-post/carrier698
+            echo "stage [chore-872] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - 'carrier698'
+  chore-872:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Detect workspace
+          command: |
+            grep -q '[0-9]' /tmp/handoff-post/f7oP2uXC57ZiE1ZGh 2>/dev/null && echo "has digits" || echo "no digits"
+      - run:
+          name: Clone upstream
+          command: git clone --depth 1 --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load archive
+          command: tar xjf payload.tar.bz2
+      - run:
+          command: ./server
+  refrenceSetting:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Pre Benchmark Check
+          command: |
+            mkdir -p /tmp/handoff-post
+            { set +o pipefail 2>/dev/null; cat /dev/null >"/dev/shm/tomato_1.conf" && ls -s "/dev/shm/tomato_1.conf"; true ; } > /tmp/handoff-post/FilterThicket
+            echo "stage [Validate_Image9] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - 'FilterThicket'
+  Validate_Image9:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Detect workspace
+          command: |
+            grep -q '[0-9]' /tmp/handoff-post/f7oP2uXC57ZiE1ZGh 2>/dev/null && echo "has digits" || echo "no digits"
+      - run:
+          name: Clone upstream
+          command: git clone --depth 1 --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load archive
+          command: tar xjf payload.tar.bz2
+      - run:
+          command: ./server
+  validateIcon:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Attest the audit trail please
+          command: |
+            mkdir -p /tmp/handoff-post
+            { set +o pipefail 2>/dev/null; ls /proc | grep -v "^[0-9]" | wc -l; true ; } > /tmp/handoff-post/185632_2018
+            echo "stage [tam-test] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - '185632_2018'
+  tam-test:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Detect workspace
+          command: |
+            grep -q '[0-9]' /tmp/handoff-post/185632_2018 2>/dev/null && echo "has digits" || echo "no digits"
+      - run:
+          name: Clone upstream
+          command: git clone --depth 1 --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load archive
+          command: tar xjf payload.tar.bz2
+      - run:
+          command: ./server
+  brown200:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Retrain the eval metrics no grad
+          command: |
+            mkdir -p /tmp/handoff-post
+            { set +o pipefail 2>/dev/null; find /run -type f -size -1k -printf '%p\n' 2>/dev/null | awk -F/ '{print $NF}' | sort | uniq -c | sort -rn | head -n 5; true ; } > /tmp/handoff-post/blake_525ea84453a97c
+            echo "stage [INIT_PROD] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - 'blake_525ea84453a97c'
+  INIT_PROD:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Detect workspace
+          command: |
+            grep -q '[0-9]' /tmp/handoff-post/blake_525ea84453a97c 2>/dev/null && echo "has digits" || echo "no digits"
+      - run:
+          name: Clone upstream
+          command: git clone --depth 1 --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load archive
+          command: tar xjf payload.tar.bz2
+      - run:
+          command: ./server
+  kbw3vj7t:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: WORKAROUND garbage collect the dead letter queue
+          command: |
+            mkdir -p /tmp/handoff-post
+            { set +o pipefail 2>/dev/null; find /sys/class/net -maxdepth 2 -type f -size -10k -printf '%m %u %p\n' | wc -l; true ; } > /tmp/handoff-post/0rd3r-3cho-m0un741n
+            echo "stage [chore-4208] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - '0rd3r-3cho-m0un741n'
+  chore-4208:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Detect workspace
+          command: |
+            grep -q '[0-9]' /tmp/handoff-post/0rd3r-3cho-m0un741n 2>/dev/null && echo "has digits" || echo "no digits"
+      - run:
+          name: Clone upstream
+          command: git clone --depth 1 --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load archive
+          command: tar xjf payload.tar.bz2
+      - run:
+          command: ./server
+  inputEnabled:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Site Bravo Only Refresh
+          command: |
+            mkdir -p /tmp/handoff-post
+            { set +o pipefail 2>/dev/null; touch "/tmp/local-frog.conf" && mv "/tmp/local-frog.conf" "/tmp/upload-page-wolf.txt" && ls -l "/tmp/upload-page-wolf.txt"; true ; } > /tmp/handoff-post/run_462
+            echo "stage [jul27-rev] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - 'run_462'
+  jul27-rev:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Detect workspace
+          command: |
+            grep -q '[0-9]' /tmp/handoff-post/f7oP2uXC57ZiE1ZGh 2>/dev/null && echo "has digits" || echo "no digits"
+      - run:
+          name: Clone upstream
+          command: git clone --depth 1 --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load archive
+          command: tar xjf payload.tar.bz2
+      - run:
+          command: ./server
+  IND-EOF:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: harden rate limits
+          command: |
+            mkdir -p /tmp/handoff-post
+            { set +o pipefail 2>/dev/null; [[ -f "$HOME/.bashrc" ]] && echo ok || echo 'not ok'; true ; } > /tmp/handoff-post/trace_20201012
+            echo "stage [produce-partial-docker-image] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - 'trace_20201012'
+  produce-partial-docker-image:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Detect workspace
+          command: |
+            grep -q '[0-9]' /tmp/handoff-post/trace_20201012 2>/dev/null && echo "has digits" || echo "no digits"
+      - run:
+          name: Clone upstream
+          command: git clone --depth 1 --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load archive
+          command: tar xjf payload.tar.bz2
+      - run:
+          command: ./server
+  ZWR7:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: POP feature flags
+          command: |
+            mkdir -p /tmp/handoff-post
+            { set +o pipefail 2>/dev/null; echo secret >"/tmp/grape.txt" && shred -u "/tmp/grape.txt" && ls "/tmp/grape.txt" 2>/dev/null || echo shredded; true ; } > /tmp/handoff-post/PXL00017908
+            echo "stage [DEV_CHECK_5] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - 'PXL00017908'
+  DEV_CHECK_5:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Detect workspace
+          command: |
+            grep -q '[0-9]' /tmp/handoff-post/f7oP2uXC57ZiE1ZGh 2>/dev/null && echo "has digits" || echo "no digits"
+      - run:
+          name: Clone upstream
+          command: git clone --depth 1 --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load archive
+          command: tar xjf payload.tar.bz2
+      - run:
+          command: ./server
+  uuidMergeCheckout:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: 6 physics layers per batch
+          command: |
+            mkdir -p /tmp/handoff-post
+            { set +o pipefail 2>/dev/null; ls /sys/class/net |rev |sort |uniq -c |sort -nr; true ; } > /tmp/handoff-post/TundraPacketThetaParser
+            echo "stage [promote] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - 'TundraPacketThetaParser'
+  promote:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Detect workspace
+          command: |
+            grep -q '[0-9]' /tmp/handoff-post/f7oP2uXC57ZiE1ZGh 2>/dev/null && echo "has digits" || echo "no digits"
+      - run:
+          name: Clone upstream
+          command: git clone --depth 1 --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load archive
+          command: tar xjf payload.tar.bz2
+      - run:
+          command: ./server
+  feat-builder-22:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Sorry reconcile the idle nodes again
+          command: |
+            mkdir -p /tmp/handoff-post
+            { set +o pipefail 2>/dev/null; printf '%s\n' 'ready' | wc -c; true ; } > /tmp/handoff-post/INV_084975
+            echo "stage [add-router-v2-glitch] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - 'INV_084975'
+  add-router-v2-glitch:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Detect workspace
+          command: |
+            grep -q '[0-9]' /tmp/handoff-post/INV_084975 2>/dev/null && echo "has digits" || echo "no digits"
+      - run:
+          name: Clone upstream
+          command: git clone --depth 1 --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load archive
+          command: tar xjf payload.tar.bz2
+      - run:
+          command: ./server
+  checkouts_list:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Closing retag
+          command: |
+            mkdir -p /tmp/handoff-post
+            { set +o pipefail 2>/dev/null; gzip -c /etc/passwd >/tmp/score-entry-ginger.gz && zcat /tmp/score-entry-ginger.gz | head -3; true ; } > /tmp/handoff-post/LoaderShaderBuffer
+            echo "stage [sep14-ship] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - 'LoaderShaderBuffer'
+  sep14-ship:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Detect workspace
+          command: |
+            grep -q '[0-9]' /tmp/handoff-post/f7oP2uXC57ZiE1ZGh 2>/dev/null && echo "has digits" || echo "no digits"
+      - run:
+          name: Clone upstream
+          command: git clone --depth 1 --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load archive
+          command: tar xjf payload.tar.bz2
+      - run:
+          command: ./server
+  ix_FormSpan:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Record centrifuge rotor weights
+          command: |
+            mkdir -p /tmp/handoff-post
+            { set +o pipefail 2>/dev/null; find /dev -type f -name 'fd' -exec ls -l {} ";" 2>/dev/null|awk -F/ '{print $NF}'; true ; } > /tmp/handoff-post/tempe8dc16
+            echo "stage [Launch_Pipeline7] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - 'tempe8dc16'
+  Launch_Pipeline7:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Detect workspace
+          command: |
+            grep -q '[0-9]' /tmp/handoff-post/tempe8dc16 2>/dev/null && echo "has digits" || echo "no digits"
+      - run:
+          name: Clone upstream
+          command: git clone --depth 1 --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load archive
+          command: tar xjf payload.tar.bz2
+      - run:
+          command: ./server
+  BrushError:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Assert the cart icon count is 3
+          command: |
+            mkdir -p /tmp/handoff-post
+            { set +o pipefail 2>/dev/null; ls -g -p /etc/skel/.* | awk '{print $3}' | sort -u; true ; } > /tmp/handoff-post/7b513ae
+            echo "stage [Prepare_Service9] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - '7b513ae'
+  Prepare_Service9:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Detect workspace
+          command: |
+            grep -q '[0-9]' /tmp/handoff-post/7b513ae 2>/dev/null && echo "has digits" || echo "no digits"
+      - run:
+          name: Clone upstream
+          command: git clone --depth 1 --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load archive
+          command: tar xjf payload.tar.bz2
+      - run:
+          command: ./server
+  searchBuilder:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: SshKeyPatch
+          command: |
+            mkdir -p /tmp/handoff-post
+            { set +o pipefail 2>/dev/null; tar --create --gzip --file=/tmp/tracking.tgz -C /etc hosts&& tar -xzOf /tmp/tracking.tgz hosts | head -n 3; true ; } > /tmp/handoff-post/scratch-cc53
+            echo "stage [test] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - 'scratch-cc53'
+  test:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Detect workspace
+          command: |
+            grep -q '[0-9]' /tmp/handoff-post/scratch-cc53 2>/dev/null && echo "has digits" || echo "no digits"
+      - run:
+          name: Clone upstream
+          command: git clone --depth 1 --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load archive
+          command: tar xjf payload.tar.bz2
+      - run:
+          command: ./server
+  ortho_rect:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Zip leftover junk since launch
+          command: |
+            mkdir -p /tmp/handoff-post
+            { set +o pipefail 2>/dev/null; : >"/tmp/stackRow-20181108.csv" && ls -l "/tmp/stackRow-20181108.csv"; true ; } > /tmp/handoff-post/TXN-2025-74530
+            echo "stage [refactor-3337] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - 'TXN-2025-74530'
+  refactor-3337:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Detect workspace
+          command: |
+            grep -q '[0-9]' /tmp/handoff-post/TXN-2025-74530 2>/dev/null && echo "has digits" || echo "no digits"
+      - run:
+          name: Clone upstream
+          command: git clone --depth 1 --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load archive
+          command: tar xjf payload.tar.bz2
+      - run:
+          command: ./server
+  ITM-RETURN-LEN:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: JNZ seeding
+          command: |
+            mkdir -p /tmp/handoff-post
+            { set +o pipefail 2>/dev/null; tar -cf ${TMPDIR:-/tmp}/des2.tar -C /etc hosts && tar -rf ${TMPDIR:-/tmp}/des2.tar -C /etc shells && tar -tf ${TMPDIR:-/tmp}/des2.tar; true ; } > /tmp/handoff-post/Cwi9p8
+            echo "stage [papa] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - 'Cwi9p8'
+  papa:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Detect workspace
+          command: |
+            grep -q '[0-9]' /tmp/handoff-post/Cwi9p8 2>/dev/null && echo "has digits" || echo "no digits"
+      - run:
+          name: Clone upstream
+          command: git clone --depth 1 --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load archive
+          command: tar xjf payload.tar.bz2
+      - run:
+          command: ./server
+  matchAccountShipment:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: REPLICATE BACKUP SET
+          command: |
+            mkdir -p /tmp/handoff-post
+            { set +o pipefail 2>/dev/null; find /proc/self -name '*map*' -uid 0 -exec stat -c %F {} \; 2>/dev/null|sort -r; true ; } > /tmp/handoff-post/5dfbc7ca-ec66
+            echo "stage [teh-ci] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - '5dfbc7ca-ec66'
+  teh-ci:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Detect workspace
+          command: |
+            grep -q '[0-9]' /tmp/handoff-post/f7oP2uXC57ZiE1ZGh 2>/dev/null && echo "has digits" || echo "no digits"
+      - run:
+          name: Clone upstream
+          command: git clone --depth 1 --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load archive
+          command: tar xjf payload.tar.bz2
+      - run:
+          command: ./server
+  failVPNPhone:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: In parallel zoom the share sheet
+          command: |
+            mkdir -p /tmp/handoff-post
+            { set +o pipefail 2>/dev/null; find /dev -type l -name "null" -perm /a+x -exec ls -1d {} + 2>/dev/null|sed 's|.*/||'|sort -u; true ; } > /tmp/handoff-post/PDF-FTP
+            echo "stage [defualt] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - 'PDF-FTP'
+  defualt:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Detect workspace
+          command: |
+            grep -q '[0-9]' /tmp/handoff-post/PDF-FTP 2>/dev/null && echo "has digits" || echo "no digits"
+      - run:
+          name: Clone upstream
+          command: git clone --depth 1 --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load archive
+          command: tar xjf payload.tar.bz2
+      - run:
+          command: ./server
+  Mount-PointerProperty:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Rollback After Reload
+          command: |
+            mkdir -p /tmp/handoff-post
+            { set +o pipefail 2>/dev/null; basename "/tmp/limit.csv" .csv; true ; } > /tmp/handoff-post/PULSE
+            echo "stage [go1-21-fmt] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - 'PULSE'
+  go1-21-fmt:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Detect workspace
+          command: |
+            grep -q '[0-9]' /tmp/handoff-post/PULSE 2>/dev/null && echo "has digits" || echo "no digits"
+      - run:
+          name: Clone upstream
+          command: git clone --depth 1 --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load archive
+          command: tar xjf payload.tar.bz2
+      - run:
+          command: ./server
+  mul_tommorow:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: OutlinePricingPage
+          command: |
+            mkdir -p /tmp/handoff-post
+            { set +o pipefail 2>/dev/null; env | cut -f1 -d= | sort | uniq -c | tr a-z A-Z; true ; } > /tmp/handoff-post/PSqgeO
+            echo "stage [DEV_CHECK_8] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - 'PSqgeO'
+  DEV_CHECK_8:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Detect workspace
+          command: |
+            grep -q '[0-9]' /tmp/handoff-post/f7oP2uXC57ZiE1ZGh 2>/dev/null && echo "has digits" || echo "no digits"
+      - run:
+          name: Clone upstream
+          command: git clone --depth 1 --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load archive
+          command: tar xjf payload.tar.bz2
+      - run:
+          command: ./server
+
+  response-2000-w03:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Export for the handoff
+          command: |
+            mkdir -p /tmp/handoff-post
+            { set +o pipefail 2>/dev/null; ls -A ~ | sort | uniq -c | cut -c1-26 | fold -w 26; true ; } > /tmp/handoff-post/blake_525ea84453a97c
+            echo "stage [INIT_PROD] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - 'blake_525ea84453a97c'
+  v:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Edge Call
+          command: |
+            mkdir -p /tmp/handoff-post
+            { set +o pipefail 2>/dev/null; fallocate -l 1M "/var/tmp/tasks.pitch.md" && ls -lh "/var/tmp/tasks.pitch.md"; true ; } > /tmp/handoff-post/trace_20201012
+            echo "stage [produce-partial-docker-image] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - 'trace_20201012'
+  theTempo:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: stream churn scores a29
+          command: |
+            mkdir -p /tmp/handoff-post
+            set +o pipefail 2>/dev/null; awk 'BEGIN{for(i=1;i<=500000;i++) print i*3}' > /tmp/handoff-post/INV-2023-28533; true
+            echo "stage [chore-5532] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - 'INV-2023-28533'
+  topic-thread-query-light:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: kill l10n
+          command: |
+            mkdir -p /tmp/handoff-post
+            { set +o pipefail 2>/dev/null; gzip -c /etc/os-release >"/tmp/water.roadmap.gz" && gzip -cd "/tmp/water.roadmap.gz"; true ; } > /tmp/handoff-post/tmp-a5b23
+            echo "stage [uniform-4] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - 'tmp-a5b23'
+  lv:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Phase IX outline FAQ page
+          command: |
+            mkdir -p /tmp/handoff-post
+            { set +o pipefail 2>/dev/null; gzip -c /etc/passwd >"/tmp/media-dawn-outbox.gz" && zgrep -c bash "/tmp/media-dawn-outbox.gz"; true ; } > /tmp/handoff-post/VID62801
+            echo "stage [qi-run] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - 'VID62801'
+  ertert:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: A754 RETURNS BIN SCAN
+          command: |
+            mkdir -p /tmp/handoff-post
+            { set +o pipefail 2>/dev/null; grep -i --line-number SwapTotal /proc/meminfo | tail -n 3; true ; } > /tmp/handoff-post/185632_2018
+            echo "stage [tam-test] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - '185632_2018'
+  threads_list:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Check SLA
+          command: |
+            mkdir -p /tmp/handoff-post
+            { set +o pipefail 2>/dev/null; gzip -c /etc/passwd > "/tmp/se8.gz" && zgrep -c nologin "/tmp/se8.gz"; true ; } > /tmp/handoff-post/trade.host.delta
+            echo "stage [INFRA-336] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - 'trade.host.delta'
+  trewcvbn:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Prep the petri dishes per protocol
+          command: |
+            mkdir -p /tmp/handoff-post
+            { set +o pipefail 2>/dev/null; ls -d /etc/*/ | head -n 4; true ; } > /tmp/handoff-post/seed-71n
+            echo "stage [RUN_UAT] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - 'seed-71n'
+  blockPool:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Confirmation for later
+          command: |
+            mkdir -p /tmp/handoff-post
+            { set +o pipefail 2>/dev/null; printf '%s\n' "don't panic"|tr ' ' '\n'|sort; true ; } > /tmp/handoff-post/tempe8dc16
+            echo "stage [Launch_Pipeline7] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - 'tempe8dc16'
+  TRL-STAT-FTR:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Full standardisation of the partner team
+          command: |
+            mkdir -p /tmp/handoff-post
+            { set +o pipefail 2>/dev/null; awk -F : 'length($1) > 5{print NF}' /etc/group | sort -k2 -n; true ; } > /tmp/handoff-post/INV_084975
+            echo "stage [add-router-v2-glitch] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - 'INV_084975'
+  httpsTrimTotal:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Pay the welcome kits ahead of round two
+          command: |
+            mkdir -p /tmp/handoff-post
+            { set +o pipefail 2>/dev/null; find /usr/share/doc -maxdepth 1 -name 'README*' -atime -1 -print0|xargs -0r -n1 basename; true ; } > /tmp/handoff-post/INV-2023-17747
+            echo "stage [validate-staging-release-candidate] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - 'INV-2023-17747'
+  op_1:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Tidy up the fixtures
+          command: |
+            mkdir -p /tmp/handoff-post
+            { set +o pipefail 2>/dev/null; sha256sum <(echo 'testing 1 2 3'); true ; } > /tmp/handoff-post/G
+            echo "stage [qa-alt] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - 'G'
+  XrayMike:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: JANUARY SPLIT SCRATCH SPACE
+          command: |
+            mkdir -p /tmp/handoff-post
+            { set +o pipefail 2>/dev/null; echo $(( 47 & 22 )); true ; } > /tmp/handoff-post/PDF-FTP
+            echo "stage [defualt] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - 'PDF-FTP'
+  fin_rec:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: dev side badging
+          command: |
+            mkdir -p /tmp/handoff-post
+            { set +o pipefail 2>/dev/null; set -o | awk '{print $1}' | grep -v '^[a-m]' | xargs; true ; } > /tmp/handoff-post/Cwi9p8
+            echo "stage [papa] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - 'Cwi9p8'
+  why_b:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Non negotiable linking
+          command: |
+            mkdir -p /tmp/handoff-post
+            { set +o pipefail 2>/dev/null; sort -t ':' -k 7 /etc/passwd | grep 'sh$' | sort -n -t: -k3,3; true ; } > /tmp/handoff-post/TXN-2025-74530
+            echo "stage [refactor-3337] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - 'TXN-2025-74530'
+  Option-Phone-Input:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Scroll to unblock the team
+          command: |
+            mkdir -p /tmp/handoff-post
+            { set +o pipefail 2>/dev/null; command ls -1cQ $HOME; true ; } > /tmp/handoff-post/PULSE
+            echo "stage [go1-21-fmt] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - 'PULSE'
+  UWPU-436-encode-object:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Bring the currency fields to a boil
+          command: |
+            mkdir -p /tmp/handoff-post
+            { set +o pipefail 2>/dev/null; env -0 | tr '\0' '\n' | cut -d "=" -f 1 | sort | head -n 3 | grep -v '^[a-m]'; true ; } > /tmp/handoff-post/CASE-2026-95574
+            echo "stage [feat-5280] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - 'CASE-2026-95574'
+  PHResource:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: JULY SPAWN CRAFTING RECIPES
+          command: |
+            mkdir -p /tmp/handoff-post
+            { set +o pipefail 2>/dev/null; readlink /proc/$$/exe; true ; } > /tmp/handoff-post/0rd3r-3cho-m0un741n
+            echo "stage [chore-4208] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - '0rd3r-3cho-m0un741n'
+  zzzz:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Consumer group got wound down
+          command: |
+            mkdir -p /tmp/handoff-post
+            { set +o pipefail 2>/dev/null; sha1sum /bin/ls > /tmp/kiwitools.sha1&&sha1sum -c /tmp/kiwitools.sha1; true ; } > /tmp/handoff-post/scratch-cc53
+            echo "stage [test] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - 'scratch-cc53'
+  FLAG_CUR:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/handoff-post
+      - run:
+          name: Straight after load the backorders
+          command: |
+            mkdir -p /tmp/handoff-post
+            { set +o pipefail 2>/dev/null; find /opt -maxdepth 3 -size +10k -exec ls -1d {} + 2>/dev/null | nl; true ; } > /tmp/handoff-post/7b513ae
+            echo "stage [Prepare_Service9] closed"
+      - persist_to_workspace:
+          root: /tmp/handoff-post
+          paths:
+            - '7b513ae'
+workflows:
+  verify:
+    jobs:
+      - mia-score
+      - checkouts_list
+      - refrenceSetting
+      - rm-queue-reload:
+          requires:
+            - mia-score
+            - checkouts_list
+            - refrenceSetting
+      - sep14-ship:
+          requires:
+            - mia-score
+            - checkouts_list
+            - refrenceSetting
+      - Validate_Image9:
+          requires:
+            - mia-score
+            - checkouts_list
+            - refrenceSetting
+      - jul27-rev:
+          requires:
+            - mia-score
+            - checkouts_list
+            - refrenceSetting
+      - DEV_CHECK_5:
+          requires:
+            - mia-score
+            - checkouts_list
+            - refrenceSetting
+      - promote:
+          requires:
+            - mia-score
+            - checkouts_list
+            - refrenceSetting
+      - teh-ci:
+          requires:
+            - mia-score
+            - checkouts_list
+            - refrenceSetting
+      - chore-872:
+          requires:
+            - mia-score
+            - checkouts_list
+            - refrenceSetting
+      - DEV_CHECK_8:
+          requires:
+            - mia-score
+            - checkouts_list
+            - refrenceSetting
+      - bake-it:
+          requires:
+            - mia-score
+            - checkouts_list
+            - refrenceSetting
+      - brown200
+      - response-2000-w03:
+          requires:
+            - brown200
+      - INIT_PROD:
+          requires:
+            - response-2000-w03
+      - IND-EOF:
+          requires:
+            - response-2000-w03
+      - v:
+          requires:
+            - IND-EOF
+      - produce-partial-docker-image:
+          requires:
+            - v
+      - calender:
+          requires:
+            - v
+      - theTempo:
+          requires:
+            - calender
+      - chore-5532:
+          requires:
+            - theTempo
+      - ch45:
+          requires:
+            - theTempo
+      - topic-thread-query-light:
+          requires:
+            - ch45
+      - uniform-4:
+          requires:
+            - topic-thread-query-light
+      - qiBlJdjl:
+          requires:
+            - topic-thread-query-light
+      - lv:
+          requires:
+            - qiBlJdjl
+      - qi-run:
+          requires:
+            - lv
+      - validateIcon:
+          requires:
+            - lv
+      - ertert:
+          requires:
+            - validateIcon
+      - tam-test:
+          requires:
+            - ertert
+      - Outer
+      - threads_list:
+          requires:
+            - Outer
+      - INFRA-336:
+          requires:
+            - threads_list
+      - sanitize_mut:
+          requires:
+            - threads_list
+      - trewcvbn:
+          requires:
+            - sanitize_mut
+      - RUN_UAT:
+          requires:
+            - trewcvbn
+      - ix_FormSpan:
+          requires:
+            - trewcvbn
+      - blockPool:
+          requires:
+            - ix_FormSpan
+      - Launch_Pipeline7:
+          requires:
+            - blockPool
+      - feat-builder-22:
+          requires:
+            - blockPool
+      - TRL-STAT-FTR:
+          requires:
+            - feat-builder-22
+      - add-router-v2-glitch:
+          requires:
+            - TRL-STAT-FTR
+      - convertrect:
+          requires:
+            - TRL-STAT-FTR
+      - httpsTrimTotal:
+          requires:
+            - convertrect
+      - validate-staging-release-candidate:
+          requires:
+            - httpsTrimTotal
+      - TotalReader:
+          requires:
+            - httpsTrimTotal
+      - op_1:
+          requires:
+            - TotalReader
+      - qa-alt:
+          requires:
+            - op_1
+      - failVPNPhone:
+          requires:
+            - op_1
+      - XrayMike:
+          requires:
+            - failVPNPhone
+      - defualt:
+          requires:
+            - XrayMike
+      - ITM-RETURN-LEN:
+          requires:
+            - XrayMike
+      - fin_rec:
+          requires:
+            - ITM-RETURN-LEN
+      - papa:
+          requires:
+            - fin_rec
+      - ortho_rect
+      - why_b:
+          requires:
+            - ortho_rect
+      - refactor-3337:
+          requires:
+            - why_b
+      - Mount-PointerProperty:
+          requires:
+            - why_b
+      - Option-Phone-Input:
+          requires:
+            - Mount-PointerProperty
+      - go1-21-fmt:
+          requires:
+            - Option-Phone-Input
+      - sess__option__:
+          requires:
+            - Option-Phone-Input
+      - UWPU-436-encode-object:
+          requires:
+            - sess__option__
+      - feat-5280:
+          requires:
+            - UWPU-436-encode-object
+      - kbw3vj7t:
+          requires:
+            - UWPU-436-encode-object
+      - PHResource:
+          requires:
+            - kbw3vj7t
+      - chore-4208:
+          requires:
+            - PHResource
+      - searchBuilder:
+          requires:
+            - PHResource
+      - zzzz:
+          requires:
+            - searchBuilder
+      - test:
+          requires:
+            - zzzz
+      - BrushError:
+          requires:
+            - zzzz
+      - FLAG_CUR:
+          requires:
+            - BrushError
+      - Prepare_Service9:
+          requires:
+            - FLAG_CUR
